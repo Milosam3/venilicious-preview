@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venison Fillet — Venilicious</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;0,900;1,500;1,600&family=Archivo:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141210; --bg-2:#1b1611; --brown:#2a1f14; --brown-2:#352513;
+  --amber:#c85a1e; --amber-2:#e0843b; --ember:#ff7a2a;
+  --cream:#f5efe6; --cream-2:#e8dfd0;
+  --dim:rgba(245,239,230,.62); --dim-2:rgba(245,239,230,.40);
+  --line:rgba(245,239,230,.12); --line-2:rgba(245,239,230,.07);
+  --ok:#7fae6b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip;}
+body{
+  background:var(--bg);color:var(--cream);
+  font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;padding-bottom:84px;
+}
+@media(min-width:900px){body{padding-bottom:0;}}
+body::after{
+  content:"";position:fixed;inset:0;z-index:120;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+.label{font-family:'Archivo',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-weight:600;font-size:11px;}
+.stars .s{color:var(--amber-2);letter-spacing:1px;}
+
+/* ---------- header (matches homepage) ---------- */
+.topgroup{position:sticky;top:0;z-index:60;}
+.announce{height:34px;display:flex;align-items:center;justify-content:center;background:#0e0c0a;border-bottom:1px solid rgba(200,90,30,.28);overflow:hidden;position:relative;}
+.announce .msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;color:var(--amber-2);font-size:11px;letter-spacing:.06em;font-weight:500;text-transform:uppercase;padding:0 14px;}
+.announce .msg.on{opacity:1;transform:none;}
+.announce .msg b{color:var(--cream);font-weight:700;font-variant-numeric:tabular-nums;}
+.announce .dot{width:4px;height:4px;border-radius:50%;background:var(--amber);flex:0 0 auto;}
+.nav{height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(20,18,16,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-2);}
+.nav .ico{width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
+.nav .wordmark{font-family:'Playfair Display',serif;font-weight:800;font-size:19px;letter-spacing:.02em;}
+.nav .cart{position:relative;}
+.nav .badge{position:absolute;top:-6px;right:-7px;min-width:16px;height:16px;border-radius:9px;background:var(--amber);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;transform:scale(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
+.nav .badge.show{transform:scale(1);}
+@media(min-width:900px){.nav{height:64px;padding:0 40px;}.nav .wordmark{font-size:23px;}.announce{height:38px;}}
+
+/* ---------- breadcrumb ---------- */
+.crumb{display:flex;align-items:center;gap:8px;padding:14px 22px 0;color:var(--dim-2);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
+.crumb a:hover{color:var(--amber-2);}
+.crumb .sep{opacity:.5;}
+@media(min-width:900px){.crumb{max-width:1240px;margin:0 auto;padding:20px 40px 0;}}
+
+/* ---------- PDP layout ---------- */
+.pdp{display:block;}
+@media(min-width:900px){
+  .pdp{display:grid;grid-template-columns:1.04fr .96fr;gap:54px;max-width:1240px;margin:0 auto;padding:18px 40px 0;align-items:start;}
+  .gallery{position:sticky;top:92px;}
+}
+
+/* ---------- gallery ---------- */
+.gallery{position:relative;}
+.gframe{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;background:var(--bg-2);}
+.gframe::-webkit-scrollbar{display:none;}
+.gframe figure{flex:0 0 100%;scroll-snap-align:center;position:relative;}
+.gframe img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+.gframe figcaption{position:absolute;left:14px;bottom:14px;font-family:'Spline Sans Mono',monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--cream-2);background:rgba(14,12,10,.6);backdrop-filter:blur(6px);padding:5px 9px;border-radius:6px;}
+.gdots{position:absolute;top:14px;right:14px;display:flex;gap:6px;background:rgba(14,12,10,.5);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px;}
+.gdots b{width:6px;height:6px;border-radius:50%;background:rgba(245,239,230,.4);transition:all .25s;}
+.gdots b.on{background:var(--amber-2);width:18px;border-radius:3px;}
+.gthumbs{display:flex;gap:10px;padding:12px 22px 0;}
+.gthumbs button{flex:0 0 60px;height:60px;border-radius:10px;overflow:hidden;border:1.5px solid var(--line-2);opacity:.55;transition:all .2s;}
+.gthumbs button.on{border-color:var(--amber);opacity:1;}
+.gthumbs img{width:100%;height:100%;object-fit:cover;}
+@media(min-width:900px){.gthumbs{padding:14px 0 0;}.gframe figure{border-radius:14px;overflow:hidden;}.gframe img{aspect-ratio:1/1.05;}}
+
+/* ---------- product info ---------- */
+.info{padding:22px 22px 8px;}
+@media(min-width:900px){.info{padding:0;}}
+.ptitle{font-family:'Playfair Display',serif;font-weight:800;font-size:34px;line-height:1.02;letter-spacing:-.01em;margin-bottom:6px;}
+@media(min-width:900px){.ptitle{font-size:48px;}}
+.pweight{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;}
+.ratelink{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--cream-2);margin-bottom:18px;cursor:pointer;border-bottom:1px solid transparent;transition:border-color .2s;}
+.ratelink:hover{border-color:var(--dim);}
+.ratelink .num{font-weight:700;color:var(--cream);}
+.ratelink .c{color:var(--dim);text-decoration:underline;text-underline-offset:2px;}
+
+.urgency{display:inline-flex;align-items:center;gap:9px;padding:9px 14px;border-radius:999px;background:rgba(200,90,30,.12);border:1px solid rgba(200,90,30,.42);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;color:var(--cream);margin-bottom:22px;white-space:nowrap;}
+.urgency.late{background:rgba(245,239,230,.05);border-color:var(--line);color:var(--dim);}
+.urgency .pulse{width:7px;height:7px;border-radius:50%;background:var(--ember);box-shadow:0 0 0 0 rgba(255,122,42,.55);animation:pulse 2s infinite;}
+.urgency.late .pulse{background:var(--dim-2);animation:none;box-shadow:none;}
+.urgency b{color:var(--amber-2);font-variant-numeric:tabular-nums;font-weight:700;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,122,42,.5)}70%{box-shadow:0 0 0 9px rgba(255,122,42,0)}100%{box-shadow:0 0 0 0 rgba(255,122,42,0)}}
+
+.divline{height:1px;background:var(--line-2);margin:4px 0 22px;}
+
+/* price */
+.priceblk{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+.priceblk .now{font-family:'Playfair Display',serif;font-weight:800;font-size:34px;color:var(--cream);}
+.priceblk .per{font-size:14px;color:var(--dim);font-weight:500;margin-left:-6px;}
+.priceblk .was{font-size:15px;color:var(--dim-2);text-decoration:line-through;}
+.priceblk .save{font-size:11px;font-weight:700;color:var(--ok);letter-spacing:.05em;background:rgba(127,174,107,.12);border:1px solid rgba(127,174,107,.3);padding:3px 8px;border-radius:5px;}
+
+/* purchase toggle */
+.optlabel{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:9px;}
+.toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+.toggle .opt{position:relative;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;cursor:pointer;transition:border-color .2s,background .2s;background:var(--bg-2);}
+.toggle .opt.on{border-color:var(--amber);background:rgba(200,90,30,.08);}
+.toggle .opt .ttl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--cream);margin-bottom:3px;}
+.toggle .opt .radio{width:16px;height:16px;border-radius:50%;border:2px solid var(--dim-2);flex:0 0 auto;position:relative;transition:border-color .2s;}
+.toggle .opt.on .radio{border-color:var(--amber);}
+.toggle .opt.on .radio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--amber);}
+.toggle .opt .px{font-size:12.5px;color:var(--dim);}
+.toggle .opt .tag{position:absolute;top:-9px;right:12px;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--amber);color:#fff;padding:3px 7px;border-radius:5px;}
+.nolock{font-size:11.5px;color:var(--dim);margin-bottom:22px;}
+
+/* size variants */
+.sizes{display:flex;gap:9px;margin-bottom:22px;flex-wrap:wrap;}
+.size{flex:1;min-width:88px;border:1.5px solid var(--line);border-radius:11px;padding:11px 8px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--bg-2);}
+.size.on{border-color:var(--amber);background:rgba(200,90,30,.08);}
+.size .w{font-size:14px;font-weight:700;color:var(--cream);}
+.size .p{font-size:11px;color:var(--dim);margin-top:2px;}
+
+/* qty + inline add */
+.qtyrow{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.qty{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:11px;overflow:hidden;}
+.qty button{width:44px;height:48px;font-size:20px;color:var(--cream);display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.qty button:hover{background:rgba(245,239,230,.06);}
+.qty .n{width:44px;text-align:center;font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;}
+.qtyrow .qlabel{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600;}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;height:54px;border-radius:12px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;transition:transform .15s ease,background .2s ease,box-shadow .2s ease;width:100%;}
+.btn:active{transform:scale(.98);}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 10px 24px -10px rgba(200,90,30,.9);}
+.btn-amber:hover{background:var(--amber-2);}
+.add-inline{display:none;}
+@media(min-width:900px){.add-inline{display:flex;margin-bottom:18px;}}
+
+/* trust inline */
+.trustrow{display:flex;flex-wrap:wrap;gap:8px 18px;padding:18px 0 4px;border-top:1px solid var(--line-2);margin-top:6px;}
+.trustrow .ti{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;color:var(--cream-2);}
+.trustrow .ti svg{width:16px;height:16px;color:var(--amber-2);}
+
+/* delivery estimator */
+.estimator{margin:22px 0 6px;}
+.estimator .row{display:flex;gap:9px;}
+.estimator .pin{display:flex;align-items:center;gap:8px;flex:1;border:1.5px solid var(--line);border-radius:11px;padding:0 14px;background:var(--bg-2);transition:border-color .2s;}
+.estimator .pin:focus-within{border-color:var(--amber);}
+.estimator .pin svg{width:16px;height:16px;color:var(--amber-2);flex:0 0 auto;}
+.estimator input{flex:1;height:48px;background:none;border:none;outline:none;color:var(--cream);font-family:inherit;font-size:14px;}
+.estimator input::placeholder{color:var(--dim-2);}
+.estimator .go{flex:0 0 auto;padding:0 18px;height:48px;border:1.5px solid var(--line);border-radius:11px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);transition:all .2s;}
+.estimator .go:hover{border-color:var(--amber);background:var(--amber);color:#fff;}
+.estimator .result{display:none;align-items:center;gap:8px;margin-top:11px;font-size:13px;color:var(--ok);}
+.estimator .result.show{display:flex;}
+.estimator .result svg{width:15px;height:15px;flex:0 0 auto;}
+
+/* ---------- sections below ---------- */
+.below{max-width:1240px;margin:0 auto;padding:8px 22px 0;}
+@media(min-width:900px){.below{padding:60px 40px 0;}}
+.seclabel{display:flex;align-items:center;gap:9px;color:var(--amber);margin:0 0 18px;}
+.seclabel::before{content:"";width:22px;height:1px;background:var(--amber);}
+.h2{font-family:'Playfair Display',serif;font-weight:800;font-size:26px;line-height:1.04;letter-spacing:-.01em;margin-bottom:18px;}
+@media(min-width:900px){.h2{font-size:34px;}}
+
+/* accordion */
+.acc{border-top:1px solid var(--line-2);}
+.acc:last-of-type{border-bottom:1px solid var(--line-2);}
+.acc .head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 2px;text-align:left;}
+.acc .head .t{font-family:'Playfair Display',serif;font-weight:700;font-size:19px;color:var(--cream);}
+.acc .head .ic{width:22px;height:22px;flex:0 0 auto;position:relative;transition:transform .3s;}
+.acc .head .ic::before,.acc .head .ic::after{content:"";position:absolute;background:var(--amber-2);border-radius:2px;}
+.acc .head .ic::before{top:10px;left:3px;right:3px;height:2px;}
+.acc .head .ic::after{left:10px;top:3px;bottom:3px;width:2px;transition:transform .3s;}
+.acc.open .head .ic::after{transform:scaleY(0);}
+.acc .body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.acc .body .inner{padding:0 2px 22px;color:var(--cream-2);font-size:14.5px;line-height:1.62;}
+.acc .body .inner p{margin-bottom:12px;}
+.acc .body .inner p:last-child{margin-bottom:0;}
+.nutri{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;margin-top:4px;}
+.nutri .nr{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line-2);font-size:13px;}
+.nutri .nr span:first-child{color:var(--dim);}
+.nutri .nr span:last-child{font-weight:700;color:var(--cream);font-variant-numeric:tabular-nums;}
+.cooklist{list-style:none;counter-reset:c;}
+.cooklist li{counter-increment:c;position:relative;padding:0 0 14px 38px;}
+.cooklist li::before{content:counter(c);position:absolute;left:0;top:-2px;width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(200,90,30,.5);color:var(--amber-2);font-family:'Playfair Display',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+
+/* frequently bought together */
+.fbt{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+.fbt .it{flex:0 0 auto;width:92px;text-align:center;}
+.fbt .it .im{width:92px;height:92px;border-radius:12px;overflow:hidden;border:1px solid var(--line-2);}
+.fbt .it.dim .im{opacity:.85;}
+.fbt .it img{width:100%;height:100%;object-fit:cover;}
+.fbt .it .nm{font-size:11px;color:var(--cream-2);margin-top:7px;line-height:1.25;}
+.fbt .it .pp{font-size:11px;color:var(--dim);}
+.fbt .plus{font-size:20px;color:var(--dim-2);font-weight:300;}
+.fbt-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:var(--bg-2);border:1px solid var(--line-2);border-radius:14px;padding:16px 18px;}
+.fbt-bar .tot{font-size:13px;color:var(--dim);}
+.fbt-bar .tot b{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);font-weight:700;margin-left:6px;}
+.fbt-bar .tot .strike{text-decoration:line-through;color:var(--dim-2);font-size:13px;margin-left:8px;font-family:'Archivo';}
+.fbt-bar button{flex:0 0 auto;}
+.btn-sm{height:46px;padding:0 22px;width:auto;font-size:12px;white-space:nowrap;}
+
+/* you might also like */
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 0 8px;}
+.rail::-webkit-scrollbar{display:none;}
+.card{flex:0 0 64%;scroll-snap-align:start;background:var(--bg-2);border:1px solid var(--line-2);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease,border-color .25s ease;}
+.card:hover{transform:translateY(-3px);border-color:rgba(200,90,30,.4);}
+.card .im{position:relative;aspect-ratio:1/.84;}
+.card .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.card .b{padding:13px 14px 15px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.card h3{font-family:'Playfair Display',serif;font-weight:700;font-size:17px;}
+.card .rt{display:flex;align-items:center;gap:5px;font-size:11px;}
+.card .rt .c{color:var(--dim);}
+.card .pr{display:flex;align-items:baseline;gap:7px;margin-top:2px;}
+.card .pr .now{font-family:'Playfair Display',serif;font-weight:700;font-size:18px;}
+.card .pr .was{font-size:12px;color:var(--dim-2);text-decoration:line-through;}
+.card .addsm{margin-top:auto;height:40px;border-radius:9px;background:rgba(245,239,230,.06);border:1px solid rgba(245,239,230,.16);color:var(--cream);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;}
+.card .addsm:hover{background:var(--amber);border-color:var(--amber);color:#fff;}
+.card .addsm.added{background:rgba(127,174,107,.16);border-color:rgba(127,174,107,.5);color:var(--ok);}
+@media(min-width:760px){.rail{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;}.card{flex:none;}}
+
+/* recipes */
+.recipes{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.recipe{border-radius:14px;overflow:hidden;position:relative;aspect-ratio:1/.78;display:flex;align-items:flex-end;border:1px solid var(--line-2);}
+.recipe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.recipe::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(12,10,8,.86));}
+.recipe .rc{position:relative;z-index:2;padding:16px;}
+.recipe .rk{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-2);font-weight:700;margin-bottom:4px;}
+.recipe .rt{font-family:'Playfair Display',serif;font-weight:700;font-size:17px;line-height:1.1;color:var(--cream);}
+
+/* reviews */
+.revhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.revscore{display:flex;align-items:center;gap:14px;}
+.revscore .big{font-family:'Playfair Display',serif;font-weight:800;font-size:46px;line-height:1;}
+.revscore .meta .s{color:var(--amber-2);font-size:14px;letter-spacing:2px;}
+.revscore .meta .c{color:var(--dim);font-size:12px;margin-top:3px;}
+.revsort{display:flex;gap:8px;}
+.revsort button{padding:9px 14px;border:1.5px solid var(--line);border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-2);transition:all .2s;}
+.revsort button.on{border-color:var(--amber);color:var(--cream);background:rgba(200,90,30,.08);}
+.revlist{display:grid;gap:14px;}
+@media(min-width:760px){.revlist{grid-template-columns:1fr 1fr;}}
+.review{background:var(--bg-2);border:1px solid var(--line-2);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:11px;}
+.review .top{display:flex;align-items:center;gap:10px;}
+.review .top>div:nth-child(2){flex:1;min-width:0;line-height:1.3;}
+.review .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--brown-2),var(--brown));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:var(--amber-2);flex:0 0 auto;}
+.review .nm{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.review .su{font-size:10.5px;color:var(--dim);}
+.review .vr{margin-left:auto;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ok);}
+.review .vr svg{width:11px;height:11px;}
+.review .rs{color:var(--amber-2);font-size:12px;letter-spacing:1px;}
+.review .photo{aspect-ratio:1/.6;border-radius:10px;overflow:hidden;}
+.review .photo img{width:100%;height:100%;object-fit:cover;}
+.review .qt{font-size:14px;line-height:1.5;color:var(--cream-2);}
+.review .dt{font-size:10.5px;color:var(--dim-2);letter-spacing:.04em;}
+.loadmore{display:flex;justify-content:center;margin-top:22px;}
+.loadmore button{padding:13px 28px;border:1.5px solid var(--line);border-radius:11px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);transition:all .2s;}
+.loadmore button:hover{border-color:var(--amber);background:rgba(200,90,30,.08);}
+
+/* footer mini */
+footer{margin-top:64px;background:#0c0a08;border-top:1px solid var(--line-2);padding:36px 22px;}
+footer .fmark{font-family:'Playfair Display',serif;font-weight:800;font-size:22px;}
+footer .fb{font-size:11px;color:var(--dim-2);margin-top:10px;letter-spacing:.02em;line-height:1.6;}
+@media(min-width:900px){footer{padding:48px 40px;}footer>*{max-width:1240px;margin:0 auto;}}
+
+/* sticky mobile add bar */
+.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:90;display:flex;align-items:center;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(14,12,10,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);}
+.stickybar .sp{flex:0 0 auto;line-height:1.1;}
+.stickybar .sp .lab{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+.stickybar .sp .val{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:var(--cream);}
+.stickybar .btn{flex:1;}
+@media(min-width:900px){.stickybar{display:none;}}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,30px);z-index:200;background:#0f0d0b;border:1px solid rgba(200,90,30,.5);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 18px 40px -12px rgba(0,0,0,.8);opacity:0;transition:opacity .3s ease,transform .3s cubic-bezier(.2,.8,.2,1);pointer-events:none;max-width:88%;}
+#toast.show{opacity:1;transform:translate(-50%,0);}
+@media(min-width:900px){#toast{bottom:26px;}}
+#toast .tk{width:22px;height:22px;border-radius:50%;background:var(--ok);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+#toast .tk svg{width:13px;height:13px;color:#0c0a08;}
+#toast .tt{font-size:12.5px;}#toast .tt b{font-weight:700;}
+</style>
+</head>
+<body>
+
+<!-- header -->
+<div class="topgroup">
+  <div class="announce" id="announce">
+    <div class="msg" data-msg="0"><span>🔥 Order in <b id="ann-count">2:47:13</b></span><span class="dot"></span><span>Same-day Joburg delivery still on</span></div>
+    <div class="msg" data-msg="1"><span>Free delivery over <b>R1,500</b></span><span class="dot"></span><span>WhatsApp 071 234 5678</span></div>
+    <div class="msg" data-msg="2"><span><b>4.9★</b> from 500+ Joburg families</span></div>
+  </div>
+  <div class="nav">
+    <button class="ico" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="#f5efe6" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <a class="wordmark" href="../homepage/">VENILICIOUS</a>
+    <button class="ico cart" aria-label="Cart" id="cartBtn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 7h13l-1.4 8.2a2 2 0 0 1-2 1.7H9.3a2 2 0 0 1-2-1.6L5.2 4.8A1 1 0 0 0 4.2 4H2.5" stroke="#f5efe6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.3" fill="#f5efe6"/><circle cx="16.5" cy="20" r="1.3" fill="#f5efe6"/></svg>
+      <span class="badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- breadcrumb -->
+<div class="crumb"><a href="../homepage/">Shop</a><span class="sep">/</span><a href="#">Venison</a><span class="sep">/</span><span style="color:var(--cream-2)">Fillet</span></div>
+
+<div class="pdp">
+  <!-- gallery -->
+  <div class="gallery">
+    <div class="gframe" id="gframe">
+      <figure><img src="../images/hero-sear.png" alt="Venison fillet searing on the fire"><figcaption>Cooked · over the coals</figcaption></figure>
+      <figure><img src="../images/cuts-slate.png" alt="Raw venison fillet on slate"><figcaption>Raw · on dark slate</figcaption></figure>
+      <figure><img src="../images/family-braai.png" alt="Lifestyle braai with family"><figcaption>Lifestyle · the braai</figcaption></figure>
+      <figure><img src="../images/delivery-box.png" alt="Cold chain packaging"><figcaption>Packaging · cold chain box</figcaption></figure>
+    </div>
+    <div class="gdots" id="gdots"><b class="on"></b><b></b><b></b><b></b></div>
+    <div class="gthumbs" id="gthumbs">
+      <button class="on" data-i="0"><img src="../images/hero-sear.png" alt=""></button>
+      <button data-i="1"><img src="../images/cuts-slate.png" alt=""></button>
+      <button data-i="2"><img src="../images/family-braai.png" alt=""></button>
+      <button data-i="3"><img src="../images/delivery-box.png" alt=""></button>
+    </div>
+  </div>
+
+  <!-- info -->
+  <div class="info">
+    <h1 class="ptitle">Venison Fillet</h1>
+    <div class="pweight">Wild-harvested · 500g · serves 2</div>
+    <div class="ratelink" id="toReviews"><span class="stars"><span class="s">★★★★★</span></span><span class="num">4.9</span><span class="c">(87 reviews)</span></div>
+
+    <div class="urgency" id="urgency"><span class="pulse"></span><span id="urgencyText">Order in <b id="pdp-count">2:47:13</b> for delivery today</span></div>
+
+    <div class="divline"></div>
+
+    <div class="priceblk" id="priceblk"></div>
+
+    <div class="optlabel">Choose your plan</div>
+    <div class="toggle" id="toggle">
+      <div class="opt" data-mode="once"><div class="ttl"><span class="radio"></span>One-time</div><div class="px" id="px-once">R289 once-off</div></div>
+      <div class="opt on" data-mode="sub"><span class="tag">Save 15%</span><div class="ttl"><span class="radio"></span>Subscribe</div><div class="px" id="px-sub">R245/mo · best value</div></div>
+    </div>
+    <div class="nolock">Cancel anytime. No lock-in. Skip or pause any month.</div>
+
+    <div class="optlabel">Size</div>
+    <div class="sizes" id="sizes">
+      <div class="size on" data-size="500g"><div class="w">500g</div><div class="p">serves 2</div></div>
+      <div class="size" data-size="1kg"><div class="w">1kg</div><div class="p">R519</div></div>
+      <div class="size" data-size="2kg"><div class="w">2kg</div><div class="p">R879</div></div>
+    </div>
+
+    <div class="qtyrow">
+      <span class="qlabel">Qty</span>
+      <div class="qty"><button id="qminus" aria-label="Decrease">−</button><span class="n" id="qn">1</span><button id="qplus" aria-label="Increase">+</button></div>
+    </div>
+
+    <button class="btn btn-amber add-inline" id="addInline">Subscribe — R245/mo</button>
+
+    <div class="trustrow">
+      <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/></svg>Cold chain</span>
+      <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6 2-11 8-13-1 7-3 11-8 13z"/></svg>Hormone-free</span>
+      <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.5v5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-5L12 3z"/><path d="M9 11.5l2 2 4-4"/></svg>Freshness guarantee</span>
+    </div>
+
+    <div class="estimator">
+      <div class="optlabel">Delivery estimate</div>
+      <div class="row">
+        <label class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><input id="suburb" type="text" placeholder="Enter your suburb…" autocomplete="off"></label>
+        <button class="go" id="estGo">Check</button>
+      </div>
+      <div class="result" id="estResult"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span id="estText"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- below the fold -->
+<div class="below">
+
+  <!-- accordions -->
+  <div class="acc open" data-acc>
+    <button class="head"><span class="t">Description</span><span class="ic"></span></button>
+    <div class="body"><div class="inner">
+      <p>Cut from free-roaming venison on our Limpopo and Northern Cape hunting grounds, this is the leanest, most tender cut on the animal — the equivalent of a beef fillet, but wilder. Deep, clean flavour. No hormones, no feedlots, no shortcuts.</p>
+      <p>Field-dressed, dry-aged and vacuum-sealed within the cold chain, then delivered frozen-solid to your door. Best served rare to medium-rare; venison fillet is lean and turns quickly, so pull it early and let it rest.</p>
+    </div></div>
+  </div>
+  <div class="acc" data-acc>
+    <button class="head"><span class="t">Cooking guide</span><span class="ic"></span></button>
+    <div class="body"><div class="inner">
+      <ol class="cooklist">
+        <li>Thaw overnight in the fridge. Bring to room temperature 30 minutes before cooking.</li>
+        <li>Pat dry, season generously with coarse salt. Get your coals or pan screaming hot.</li>
+        <li>Sear 2–3 minutes per side for medium-rare (internal 52–55°C). Don't overcook — venison is lean.</li>
+        <li>Rest 5–8 minutes under foil before slicing against the grain.</li>
+      </ol>
+    </div></div>
+  </div>
+  <div class="acc" data-acc>
+    <button class="head"><span class="t">Nutrition</span><span class="ic"></span></button>
+    <div class="body"><div class="inner">
+      <p style="margin-bottom:4px;">Per 100g, raw — naturally lean, iron-rich, higher in omega-3 than beef.</p>
+      <div class="nutri">
+        <div class="nr"><span>Energy</span><span>137 kcal</span></div>
+        <div class="nr"><span>Protein</span><span>22 g</span></div>
+        <div class="nr"><span>Fat</span><span>4.5 g</span></div>
+        <div class="nr"><span>Saturated</span><span>1.6 g</span></div>
+        <div class="nr"><span>Iron</span><span>3.3 mg</span></div>
+        <div class="nr"><span>Sodium</span><span>54 mg</span></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- frequently bought together -->
+  <div style="padding-top:48px;">
+    <div class="label seclabel">Goes well together</div>
+    <h2 class="h2">Frequently bought together</h2>
+    <div class="fbt">
+      <div class="it"><div class="im"><img src="../images/cuts-slate.png" alt=""></div><div class="nm">Venison Fillet</div><div class="pp">R289</div></div>
+      <span class="plus">+</span>
+      <div class="it dim"><div class="im"><img src="../images/boerewors-braai.png" alt=""></div><div class="nm">Venison Boerewors</div><div class="pp">R129</div></div>
+      <span class="plus">+</span>
+      <div class="it dim"><div class="im"><img src="../images/family-braai.png" alt=""></div><div class="nm">Springbok Chops</div><div class="pp">R149</div></div>
+    </div>
+    <div class="fbt-bar">
+      <div class="tot">Buy all three<b>R489</b><span class="strike">R567</span></div>
+      <button class="btn btn-amber btn-sm add" data-name="Fillet bundle" data-price="489">Add all three</button>
+    </div>
+  </div>
+
+  <!-- you might also like -->
+  <div style="padding-top:48px;">
+    <div class="label seclabel">More from the field</div>
+    <h2 class="h2">You might also like</h2>
+    <div class="rail">
+      <article class="card">
+        <div class="im"><img src="../images/cuts-slate.png" alt="Kudu Steak"></div>
+        <div class="b"><h3>Kudu Steak</h3><div class="rt"><span class="stars"><span class="s">★★★★★</span></span><span class="c">4.8 (64)</span></div><div class="pr"><span class="now">R319</span><span class="was">R389</span></div>
+        <button class="addsm add" data-name="Kudu Steak" data-price="319">Add to cart</button></div>
+      </article>
+      <article class="card">
+        <div class="im"><img src="../images/boerewors-braai.png" alt="Venison Boerewors"></div>
+        <div class="b"><h3>Venison Boerewors</h3><div class="rt"><span class="stars"><span class="s">★★★★★</span></span><span class="c">4.9 (156)</span></div><div class="pr"><span class="now">R129</span><span class="was">R159</span></div>
+        <button class="addsm add" data-name="Venison Boerewors" data-price="129">Add to cart</button></div>
+      </article>
+      <article class="card">
+        <div class="im"><img src="../images/delivery-box.png" alt="Springbok Chops"></div>
+        <div class="b"><h3>Springbok Chops</h3><div class="rt"><span class="stars"><span class="s">★★★★★</span></span><span class="c">4.7 (92)</span></div><div class="pr"><span class="now">R149</span><span class="was">R189</span></div>
+        <button class="addsm add" data-name="Springbok Chops" data-price="149">Add to cart</button></div>
+      </article>
+    </div>
+  </div>
+
+  <!-- recipes -->
+  <div style="padding-top:48px;">
+    <div class="label seclabel">From our kitchen</div>
+    <h2 class="h2">What to make with this</h2>
+    <div class="recipes">
+      <a class="recipe" href="#"><img src="../images/hero-sear.png" alt=""><div class="rc"><div class="rk">25 min · Braai</div><div class="rt">Coal-seared fillet with rosemary &amp; coarse salt</div></div></a>
+      <a class="recipe" href="#"><img src="../images/cuts-slate.png" alt=""><div class="rc"><div class="rk">40 min · Stovetop</div><div class="rt">Pan-roasted venison with red wine &amp; berry jus</div></div></a>
+    </div>
+  </div>
+
+  <!-- reviews -->
+  <div style="padding-top:48px;" id="reviews">
+    <div class="label seclabel">Verified buyers</div>
+    <div class="revhead">
+      <div class="revscore"><div class="big">4.9</div><div class="meta"><div class="s stars">★★★★★</div><div class="c">87 reviews · 100% would buy again</div></div></div>
+      <div class="revsort" id="revsort"><button class="on" data-sort="recent">Most recent</button><button data-sort="photos">With photos</button></div>
+    </div>
+    <div class="revlist" id="revlist">
+      <div class="review" data-photo="1">
+        <div class="top"><div class="av">T</div><div><div class="nm">Thabo M.</div><div class="su">Sandton</div></div><span class="vr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Verified buyer</span></div>
+        <div class="rs">★★★★★</div>
+        <div class="photo"><img src="../images/hero-sear.png" alt=""></div>
+        <div class="qt">"Seared it over the coals exactly like the guide said. Pulled at 53°C, rested it — best venison I've cooked at home. Already reordered."</div>
+        <div class="dt">2 days ago</div>
+      </div>
+      <div class="review" data-photo="1">
+        <div class="top"><div class="av">L</div><div><div class="nm">Lerato K.</div><div class="su">Greenside</div></div><span class="vr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Verified buyer</span></div>
+        <div class="rs">★★★★★</div>
+        <div class="photo"><img src="../images/family-braai.png" alt=""></div>
+        <div class="qt">"Arrived frozen solid in this heat — the cold chain is the real deal. Tender and lean, the family demolished it."</div>
+        <div class="dt">5 days ago</div>
+      </div>
+      <div class="review" data-photo="0">
+        <div class="top"><div class="av">P</div><div><div class="nm">Pieter v.</div><div class="su">Fourways</div></div><span class="vr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Verified buyer</span></div>
+        <div class="rs">★★★★★</div>
+        <div class="qt">"On the Subscribe plan now — fillet every month at 15% off is a no-brainer. Quality has been spot on every single time."</div>
+        <div class="dt">1 week ago</div>
+      </div>
+      <div class="review" data-photo="0" data-extra>
+        <div class="top"><div class="av">N</div><div><div class="nm">Nandi S.</div><div class="su">Rosebank</div></div><span class="vr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Verified buyer</span></div>
+        <div class="rs">★★★★☆</div>
+        <div class="qt">"Lovely cut and flavour. Would've liked a slightly bigger 500g portion, but the taste more than makes up for it."</div>
+        <div class="dt">2 weeks ago</div>
+      </div>
+      <div class="review" data-photo="1" data-extra>
+        <div class="top"><div class="av">J</div><div><div class="nm">Johan B.</div><div class="su">Bryanston</div></div><span class="vr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Verified buyer</span></div>
+        <div class="rs">★★★★★</div>
+        <div class="photo"><img src="../images/cuts-slate.png" alt=""></div>
+        <div class="qt">"Proper wild venison — you can taste the difference vs supermarket game. Packaging was immaculate too."</div>
+        <div class="dt">3 weeks ago</div>
+      </div>
+    </div>
+    <div class="loadmore"><button id="loadmore">Load more reviews</button></div>
+  </div>
+</div>
+
+<footer>
+  <div class="fmark">VENILICIOUS</div>
+  <div class="fb">Wild-harvested, hormone-free game meat. Field to door.<br>© 2026 Venilicious (Pty) Ltd · CIPC Reg. 2024/123456/07</div>
+</footer>
+
+<!-- sticky mobile add bar -->
+<div class="stickybar">
+  <div class="sp"><div class="lab" id="sb-lab">Subscribe</div><div class="val" id="sb-val">R245/mo</div></div>
+  <button class="btn btn-amber add" id="addSticky" data-name="Venison Fillet">Add to cart</button>
+</div>
+
+<div id="toast"><div class="tk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div><div class="tt"></div></div>
+
+<script>
+/* announcement rotator */
+(function(){const m=[...document.querySelectorAll('.announce .msg')];let i=0;m[0].classList.add('on');setInterval(()=>{m[i].classList.remove('on');i=(i+1)%m.length;m[i].classList.add('on');},4000);})();
+
+/* countdown — resets daily at 10am */
+(function(){
+  const CUT=10;const a=document.getElementById('ann-count'),p=document.getElementById('pdp-count');
+  const urg=document.getElementById('urgency'),ut=document.getElementById('urgencyText');
+  function next(){const n=new Date(),c=new Date(n);c.setHours(CUT,0,0,0);if(n>=c)c.setDate(c.getDate()+1);return c;}
+  function tick(){
+    const n=new Date();const before=n.getHours()<CUT;
+    const diff=Math.max(0,next()-n);const h=Math.floor(diff/3.6e6),mm=Math.floor(diff%3.6e6/6e4),s=Math.floor(diff%6e4/1e3);
+    const t=h+':'+String(mm).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    if(a)a.textContent=t;
+    if(before){urg.classList.remove('late');ut.innerHTML='Order in <b id="pdp-count">'+t+'</b> for delivery today';}
+    else{urg.classList.add('late');ut.innerHTML='Order now — delivered tomorrow by 2pm';}
+  }
+  tick();setInterval(tick,1000);
+})();
+
+/* gallery */
+(function(){
+  const f=document.getElementById('gframe'),dots=[...document.querySelectorAll('#gdots b')],thumbs=[...document.querySelectorAll('#gthumbs button')];
+  function setActive(i){dots.forEach((d,x)=>d.classList.toggle('on',x===i));thumbs.forEach((t,x)=>t.classList.toggle('on',x===i));}
+  f.addEventListener('scroll',()=>{const i=Math.round(f.scrollLeft/f.clientWidth);setActive(i);});
+  thumbs.forEach(t=>t.addEventListener('click',()=>{const i=+t.dataset.i;f.scrollTo({left:i*f.clientWidth,behavior:'smooth'});setActive(i);}));
+})();
+
+/* pricing model */
+const PRICES={'500g':{once:289,was:359},'1kg':{once:519,was:639},'2kg':{once:879,was:1079}};
+let state={size:'500g',mode:'sub',qty:1};
+function sub(p){return Math.round(p*0.85/5)*5;}
+function render(){
+  const d=PRICES[state.size];const onceP=d.once, subP=sub(d.once), save=d.was-d.once;
+  const unit=state.mode==='sub'?subP:onceP;
+  // price block
+  const pb=document.getElementById('priceblk');
+  if(state.mode==='sub'){
+    pb.innerHTML='<span class="now">R'+subP+'</span><span class="per">/month</span><span class="save">Save 15% vs R'+onceP+'</span>';
+  }else{
+    pb.innerHTML='<span class="now">R'+onceP+'</span><span class="was">R'+d.was+'</span><span class="save">Save R'+save+'</span>';
+  }
+  // option subtitles
+  document.getElementById('px-once').textContent='R'+onceP+' once-off';
+  document.getElementById('px-sub').textContent='R'+subP+'/mo · best value';
+  // size subtitles
+  document.querySelectorAll('.size').forEach(s=>{const sz=s.dataset.size;s.querySelector('.p').textContent=(sz==='500g'?'serves 2':'R'+PRICES[sz].once);});
+  // buttons + sticky
+  const label=state.mode==='sub'?'Subscribe — R'+subP+'/mo':'Add to cart — R'+(onceP*state.qty);
+  document.getElementById('addInline').textContent=label;
+  document.getElementById('sb-lab').textContent=state.mode==='sub'?'Subscribe':(state.qty>1?state.qty+' × Venison Fillet':'Venison Fillet');
+  document.getElementById('sb-val').textContent=state.mode==='sub'?('R'+subP+'/mo'):('R'+(onceP*state.qty));
+}
+/* toggles */
+document.getElementById('toggle').addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o)return;document.querySelectorAll('.toggle .opt').forEach(x=>x.classList.remove('on'));o.classList.add('on');state.mode=o.dataset.mode;render();});
+document.getElementById('sizes').addEventListener('click',e=>{const s=e.target.closest('.size');if(!s)return;document.querySelectorAll('.size').forEach(x=>x.classList.remove('on'));s.classList.add('on');state.size=s.dataset.size;render();});
+document.getElementById('qplus').addEventListener('click',()=>{state.qty=Math.min(20,state.qty+1);document.getElementById('qn').textContent=state.qty;render();});
+document.getElementById('qminus').addEventListener('click',()=>{state.qty=Math.max(1,state.qty-1);document.getElementById('qn').textContent=state.qty;render();});
+render();
+
+/* reviews jump */
+document.getElementById('toReviews').addEventListener('click',()=>document.getElementById('reviews').scrollIntoView({behavior:'smooth',block:'start'}));
+
+/* delivery estimator */
+(function(){
+  const inp=document.getElementById('suburb'),btn=document.getElementById('estGo'),res=document.getElementById('estResult'),txt=document.getElementById('estText');
+  function go(){const v=inp.value.trim();if(!v)return;const day=new Date().getHours()<10?'today':'tomorrow';txt.textContent='Delivers to '+v.replace(/\b\w/g,c=>c.toUpperCase())+' '+day+' by 2pm — cold chain guaranteed.';res.classList.add('show');}
+  btn.addEventListener('click',go);inp.addEventListener('keydown',e=>{if(e.key==='Enter')go();});
+})();
+
+/* accordions */
+document.querySelectorAll('[data-acc]').forEach(acc=>{
+  const head=acc.querySelector('.head'),body=acc.querySelector('.body');
+  function set(open){acc.classList.toggle('open',open);body.style.maxHeight=open?body.scrollHeight+'px':'0';}
+  if(acc.classList.contains('open'))requestAnimationFrame(()=>set(true));
+  head.addEventListener('click',()=>set(!acc.classList.contains('open')));
+});
+
+/* reviews sort + load more */
+(function(){
+  const list=document.getElementById('revlist');
+  const extras=[...list.querySelectorAll('[data-extra]')];
+  extras.forEach(r=>r.style.display='none');
+  function applySort(photos){
+    [...list.children].forEach(r=>{
+      const isExtra=r.hasAttribute('data-extra');
+      const hide=(isExtra)||(photos&&r.dataset.photo==='0');
+      r.style.display=hide?'none':'';
+    });
+  }
+  document.querySelectorAll('#revsort button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#revsort button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+    applySort(b.dataset.sort==='photos');
+  }));
+  document.getElementById('loadmore').addEventListener('click',function(){
+    extras.forEach(r=>{r.removeAttribute('data-extra');r.style.display='';});
+    this.parentElement.style.display='none';
+    const photos=document.querySelector('#revsort button.on').dataset.sort==='photos';
+    [...list.children].forEach(r=>{if(photos&&r.dataset.photo==='0')r.style.display='none';});
+  });
+})();
+
+/* add to cart */
+(function(){
+  let count=0;const badge=document.getElementById('cartBadge'),toast=document.getElementById('toast'),tt=toast.querySelector('.tt');let tm;
+  function pop(name,price){count++;badge.textContent=count;badge.classList.add('show');tt.innerHTML='<b>'+name+'</b> added'+(price?' — R'+Number(price).toLocaleString():'');toast.classList.add('show');clearTimeout(tm);tm=setTimeout(()=>toast.classList.remove('show'),2200);}
+  document.querySelectorAll('.add').forEach(b=>{
+    if(b.id==='addSticky'||b.id==='addInline')return;
+    b.addEventListener('click',()=>{const o=b.classList.contains('addsm');if(o){if(b.classList.contains('added'))return;b.classList.add('added');const t=b.textContent;b.textContent='Added ✓';setTimeout(()=>{b.classList.remove('added');b.textContent=t;},1500);}pop(b.dataset.name,b.dataset.price);});
+  });
+  function mainAdd(){const d=PRICES[state.size];const unit=state.mode==='sub'?sub(d.once):d.once;pop('Venison Fillet ('+state.size+(state.mode==='sub'?' · subscription':'')+')',unit*(state.mode==='sub'?1:state.qty));}
+  document.getElementById('addSticky').addEventListener('click',mainAdd);
+  document.getElementById('addInline').addEventListener('click',mainAdd);
+})();
+</script>
+</body>
+</html>
