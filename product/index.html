@@ -44,10 +44,14 @@ a{color:inherit;text-decoration:none}
 .nav{height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(20,18,16,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-2);}
 .nav .ico{width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
 .nav .wordmark{font-family:'Playfair Display',serif;font-weight:800;font-size:19px;letter-spacing:.02em;}
+.nav .brand{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.92);border-radius:8px;padding:4px 10px 4px 5px;}
+.nav .brand .mark{height:30px;width:auto;display:block;}
+.nav .brand .wm{height:14px;width:auto;display:block;}
+footer .flogo{filter:brightness(0) invert(1);opacity:.85;}
 .nav .cart{position:relative;}
 .nav .badge{position:absolute;top:-6px;right:-7px;min-width:16px;height:16px;border-radius:9px;background:var(--amber);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;transform:scale(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
 .nav .badge.show{transform:scale(1);}
-@media(min-width:900px){.nav{height:64px;padding:0 40px;}.nav .wordmark{font-size:23px;}.announce{height:38px;}}
+@media(min-width:900px){.nav{height:64px;padding:0 40px;}.nav .wordmark{font-size:23px;}.nav .brand .mark{height:34px;}.nav .brand .wm{height:16px;}.announce{height:38px;}}
 
 /* ---------- breadcrumb ---------- */
 .crumb{display:flex;align-items:center;gap:8px;padding:14px 22px 0;color:var(--dim-2);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
@@ -264,6 +268,7 @@ a{color:inherit;text-decoration:none}
 /* footer mini */
 footer{margin-top:64px;background:#0c0a08;border-top:1px solid var(--line-2);padding:36px 22px;}
 footer .fmark{font-family:'Playfair Display',serif;font-weight:800;font-size:22px;}
+footer .flogo{width:120px;height:auto;display:block;margin-bottom:6px;}
 footer .fb{font-size:11px;color:var(--dim-2);margin-top:10px;letter-spacing:.02em;line-height:1.6;}
 @media(min-width:900px){footer{padding:48px 40px;}footer>*{max-width:1240px;margin:0 auto;}}
 
@@ -295,7 +300,7 @@ footer .fb{font-size:11px;color:var(--dim-2);margin-top:10px;letter-spacing:.02e
   </div>
   <div class="nav">
     <button class="ico" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="#f5efe6" stroke-width="1.6" stroke-linecap="round"/></svg></button>
-    <a class="wordmark" href="../homepage/">VENILICIOUS</a>
+    <a class="brand" href="../homepage/" aria-label="Venilicious home"><img class="mark" src="../images/logo-mark.png" alt=""><img class="wm" src="../images/logo-wordmark.png" alt="Venilicious"></a>
     <button class="ico cart" aria-label="Cart" id="cartBtn">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 7h13l-1.4 8.2a2 2 0 0 1-2 1.7H9.3a2 2 0 0 1-2-1.6L5.2 4.8A1 1 0 0 0 4.2 4H2.5" stroke="#f5efe6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.3" fill="#f5efe6"/><circle cx="16.5" cy="20" r="1.3" fill="#f5efe6"/></svg>
       <span class="badge" id="cartBadge">0</span>
@@ -508,7 +513,7 @@ footer .fb{font-size:11px;color:var(--dim-2);margin-top:10px;letter-spacing:.02e
 </div>
 
 <footer>
-  <div class="fmark">VENILICIOUS</div>
+  <div class="flogowrap"><img class="flogo" src="../images/logo-lockup.png" alt="Venilicious"></div>
   <div class="fb">Wild-harvested, hormone-free game meat. Field to door.<br>© 2026 Venilicious (Pty) Ltd · CIPC Reg. 2024/123456/07</div>
 </footer>
 
