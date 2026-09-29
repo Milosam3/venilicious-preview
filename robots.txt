@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://venilicious-preview.vercel.app/sitemap.xml

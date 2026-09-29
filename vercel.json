@@ -1,0 +1,17 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/homepage", "destination": "/", "permanent": true },
+    { "source": "/homepage/", "destination": "/", "permanent": true },
+    { "source": "/product", "destination": "/venison-fillet/", "permanent": true },
+    { "source": "/product/", "destination": "/venison-fillet/", "permanent": true },
+    { "source": "/trailer-hire", "destination": "/fridge-trailer-hire/", "permanent": true },
+    { "source": "/trailer-hire/", "destination": "/fridge-trailer-hire/", "permanent": true },
+    { "source": "/koelwa", "destination": "/fridge-trailer-hire/", "permanent": true },
+    { "source": "/koelwa/", "destination": "/fridge-trailer-hire/", "permanent": true }
+  ],
+  "headers": [
+    { "source": "/images/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }] },
+    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] }
+  ]
+}

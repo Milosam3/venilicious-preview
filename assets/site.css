@@ -1,0 +1,51 @@
+/* Venilicious shared chrome: menu drawer + site toast.
+   Loaded on every page after the page's own <style>. Uses the page's :root tokens. */
+
+/* announcement bar: only the visible message takes clicks */
+.announce .msg{pointer-events:none;}
+.announce .msg.on{pointer-events:auto;}
+.announce a.msg:hover span:last-child{text-decoration:underline;text-underline-offset:3px;}
+
+/* keyboard focus, site wide */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{
+  outline:2px solid var(--amber-2);outline-offset:3px;border-radius:6px;
+}
+
+/* ---------- menu drawer ---------- */
+.drawer-scrim{position:fixed;inset:0;z-index:150;background:rgba(8,6,5,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;transition:opacity .25s ease;}
+.drawer-scrim.open{opacity:1;}
+.drawer{
+  position:fixed;top:0;left:0;bottom:0;z-index:160;width:min(86vw,340px);
+  background:#0f0d0b;border-right:1px solid rgba(200,90,30,.28);
+  display:flex;flex-direction:column;padding:18px 22px calc(22px + env(safe-area-inset-bottom));
+  transform:translateX(-102%);transition:transform .32s cubic-bezier(.2,.8,.2,1);overflow-y:auto;
+}
+.drawer.open{transform:none;}
+.drawer[hidden],.drawer-scrim[hidden]{display:none;}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.drawer-head .label{color:var(--amber-2);}
+.drawer-x{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--cream);}
+.drawer-x svg{width:18px;height:18px;}
+.drawer .dgroup{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim-2);font-weight:600;margin:18px 0 6px;}
+.drawer a.dl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line-2);
+  font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:21px;color:var(--cream);}
+.drawer a.dl:hover{color:var(--amber-2);}
+.drawer a.dl .tag{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:#fff;padding:4px 7px;border-radius:5px;}
+.drawer .dfoot{margin-top:auto;padding-top:26px;}
+.drawer .dwa{display:flex;align-items:center;justify-content:center;gap:9px;height:50px;border-radius:11px;background:rgba(127,174,107,.1);border:1px solid rgba(127,174,107,.35);color:var(--cream);font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;}
+.drawer .dwa svg{width:18px;height:18px;color:var(--ok);}
+body.menu-open{overflow:hidden;}
+
+/* ---------- site toast (WhatsApp fallback etc.) ---------- */
+.stoast{position:fixed;left:50%;bottom:26px;z-index:210;transform:translate(-50%,30px);opacity:0;pointer-events:none;
+  background:#0f0d0b;border:1px solid rgba(200,90,30,.5);border-radius:12px;padding:12px 16px;max-width:min(92vw,420px);
+  font-size:13px;line-height:1.45;color:var(--cream);box-shadow:0 18px 40px -12px rgba(0,0,0,.8);
+  transition:opacity .3s ease,transform .3s cubic-bezier(.2,.8,.2,1);}
+.stoast.show{opacity:1;transform:translate(-50%,0);}
+body.has-stickybar .stoast{bottom:96px;}
+@media(min-width:900px){body.has-stickybar .stoast{bottom:26px;}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  .rv{opacity:1!important;transform:none!important;}
+}
