@@ -93,7 +93,7 @@ Open http://localhost:8000/.
 
 ### Deploy
 - Vercel project `venilicious-preview`, team `milosam3s-projects`. Static files, no build.
-- Deploy with `vercel --prod` from the repo root. `.vercelignore` keeps this file and the original PNGs off the site.
+- **Git-connected (since 2026-09-29): every push to `main` deploys to production.** `vercel --prod` from the repo root still works as a manual fallback. `.vercelignore` keeps this file and the original PNGs off the site.
 - `vercel.json` 301s: `/homepage/` → `/`, `/product/` → `/venison-fillet/`, `/trailer-hire/` and `/koelwa/` → `/fridge-trailer-hire/`.
 - **Canonical/OG/sitemap URLs are hard-coded to `https://venilicious-preview.vercel.app`.** When a custom domain goes live, find/replace that string across the repo (HTML, sitemap.xml, robots.txt) and redeploy.
 
