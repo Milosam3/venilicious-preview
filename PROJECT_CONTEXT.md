@@ -9,7 +9,7 @@
 
 - **Venilicious** is a South African brand selling **wild-harvested game meat** (venison, lamb, game) with **same-day delivery in Johannesburg**, plus **fridge trailer hire** (a towable refrigerated trailer, mostly hired by hunters in season, marketed to functions and events in summer).
 - The **meat shop is the main thing**. Fridge trailer hire has its own page at `/fridge-trailer-hire/`.
-- The owner has **no game meat stock right now** (out of hunting season). Summer focus is marketing the trailer.
+- The shop sells **year round** (not only game meat: lamb etc. too). The summer marketing push is the trailer hire, which hunters mostly book in season.
 - This repo is a **static site, no backend, no build step**. The meat cart is still fake (a counter and a toast). The trailer page takes enquiries via WhatsApp and a Formspree form (both need owner config, see §8).
 - Live on Vercel at **https://venilicious-preview.vercel.app**.
 - Mobile-first, dark "fire and embers" aesthetic, South African English, prices in ZAR.
@@ -131,7 +131,7 @@ Eyebrow label with amber rule · `.btn-amber` / `.btn-ghost` / `.textlink` · ca
 ## 4. Pages
 
 ### Homepage `/` (`index.html`)
-Sticky header (rotating announcement bar incl. link to trailer hire; menu drawer; cart) → hero (H1 "Wild-harvested game meat. *Delivered* to Joburg.") → trust bar → "WILD." bleed → **Best cuts** `#best-cuts` (fillet card links to `/venison-fillet/`) → **Build your box** `#build-box` → **Fridge trailer hire promo** `#trailer-hire` (replaced the fake reviews section) → **Braai Club** `#braai-club` → footer.
+Sticky header (rotating announcement bar incl. link to trailer hire; menu drawer; cart) → hero (H1 "Wild-harvested meat. *Delivered* to Joburg.") → trust bar → "WILD." bleed → **Best cuts** `#best-cuts` (fillet card links to `/venison-fillet/`) → **Build your box** `#build-box` → **Fridge trailer hire promo** `#trailer-hire` (replaced the fake reviews section) → **Braai Club** `#braai-club` → footer.
 
 ### Fridge trailer hire `/fridge-trailer-hire/`
 Breadcrumb → hero (H1 "Fridge trailer hire. *Keep it cold* from bush to braai.", Book on WhatsApp + Check dates) → trust bar → "COLD." bleed → **Who it's for** (4 use cases) → **The trailer** spec table `#trailer` (mostly TBC) → **Rates** `#rates` (Day / Weekend / Weekly, "On request", each with a prefilled WhatsApp quote link) → **How it works** `#how-it-works` → **Hunter's guide** `#tips` (SEO content: keeping game meat cold) → **FAQ** `#faq` (9 Qs, native `<details>`, FAQPage JSON-LD generated from the same text) → **Booking** `#book` (form: name, number, use, collect/return dates, destination, notes; "Send on WhatsApp" builds a prefilled message, "Send enquiry" posts to Formspree) → cross-sell to meat shop → footer → mobile sticky "Book on WhatsApp" bar.
@@ -216,13 +216,12 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 ## 9. Known issues
 
 1. **Same-day cutoff disagrees**: homepage countdown 17:00, PDP 10:00; countdowns use device time, not SAST.
-2. **Meat shop shows "order now for delivery today" while there is no stock.** Consider a "back in hunting season" mode (announcement bar + countdown pill + add buttons → "notify me").
-3. Cart is fake, resets per page. Cart icon does nothing.
-4. Subscribe mode ignores quantity on the PDP.
-5. Delivery estimator accepts any suburb.
-6. Product photos reused across different products (no real per-product shots).
-7. Plan/size selectors on the PDP are clickable `<div>`s (not keyboard accessible).
-8. Build-your-box and Braai Club buttons have no destination pages yet.
+2. Cart is fake, resets per page. Cart icon does nothing.
+3. Subscribe mode ignores quantity on the PDP.
+4. Delivery estimator accepts any suburb.
+5. Product photos reused across different products (no real per-product shots).
+6. Plan/size selectors on the PDP are clickable `<div>`s (not keyboard accessible).
+7. Build-your-box and Braai Club buttons have no destination pages yet.
 
 ---
 
@@ -232,7 +231,7 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 2. Trailer: daily / weekend / weekly rates, deposit, delivery options and fee, pickup area, any distance limits?
 3. How many trailers? (Page assumes one.)
 4. Real WhatsApp number, company registration, social handles?
-5. When is game meat back in stock, and should the shop switch to a "back in season / pre-order" mode meanwhile?
+5. Full product range (lamb and anything else beyond game), real prices and stock?
 6. What will the real store run on (Shopify, WooCommerce, custom)?
 7. Real photography for the trailer and products?
 8. Custom domain?
@@ -256,7 +255,7 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 |---|---|---|
 | 1 | P1 | Owner fills §8 checklist (WhatsApp + Formspree first: until then the trailer page can't take bookings) |
 | 2 | P1 | Google Business Profile + Search Console + custom domain (§7) |
-| 3 | P1 | Out-of-season mode for the meat shop (§9 #2) and unify cutoff in SAST (§9 #1) |
+| 3 | P1 | Unify the same-day cutoff and compute it in SAST (§9 #1) |
 | 4 | P2 | Real trailer photos → replace SVG in hero/spec, add `ImageObject` to Service JSON-LD |
 | 5 | P2 | Accessibility: PDP plan/size selectors as real radio inputs |
 | 6 | P2 | Shop-all page, persistent cart, fix subscribe × quantity |
