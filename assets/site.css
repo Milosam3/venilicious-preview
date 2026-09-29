@@ -49,3 +49,12 @@ body.has-stickybar .stoast{bottom:96px;}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
   .rv{opacity:1!important;transform:none!important;}
 }
+
+/* ---------- footer contact + socials (all pages) ---------- */
+footer .fcontact{display:flex;flex-wrap:wrap;gap:8px 18px;margin:-10px 0 18px;font-size:13px;}
+footer .fcontact a{color:var(--cream-2);border-bottom:1px solid rgba(245,239,230,.25);padding-bottom:2px;}
+footer .fcontact a:hover{color:var(--amber-2);border-color:var(--amber-2);}
+footer .fsocial{display:flex;gap:10px;margin-bottom:22px;}
+footer .fsocial a{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--cream-2);}
+footer .fsocial a:hover{border-color:var(--amber);color:var(--amber-2);}
+footer .fsocial svg{width:17px;height:17px;}

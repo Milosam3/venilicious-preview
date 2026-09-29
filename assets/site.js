@@ -1,10 +1,10 @@
 /* Venilicious shared config + chrome (menu drawer, WhatsApp links, toast).
    This is the ONE place to set contact details for the whole site. */
 window.SITE = Object.assign(window.SITE || {}, {
-  // TODO(owner): WhatsApp number, international format, digits only (e.g. 27821234567).
-  // Also swap the 27000000000 placeholder in the HTML hrefs + JSON-LD (see PROJECT_CONTEXT.md, "Owner checklist").
-  whatsapp: '27000000000',
-  // TODO(owner): Formspree form ID for trailer enquiries (formspree.io > New form > the ID after /f/).
+  // WhatsApp number (Adriaan), international format, digits only. If it changes, also find/replace it in the HTML hrefs.
+  whatsapp: '27711957072',
+  email: 'bookings@venilicious.co.za',
+  // Optional: Formspree form ID (formspree.io > New form > the ID after /f/). Empty = "Send by email" opens the visitor's email app instead.
   formspreeId: ''
 });
 

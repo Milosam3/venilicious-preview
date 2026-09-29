@@ -1,6 +1,6 @@
 # Venilicious: Project Context
 
-> Handoff brief for Claude Cowork. Last updated 2026-09-29 (trailer hire page + SEO sweep).
+> Handoff brief for Claude Cowork. Last updated 2026-09-29 (trailer hire page, SEO sweep, real trailer data + contacts).
 > The code is the source of truth. This file summarises it; if something here disagrees with the code, trust the code and update this file.
 
 ---
@@ -10,8 +10,8 @@
 - **Venilicious** is a South African brand selling **wild-harvested game meat** (venison, lamb, game) with **same-day delivery in Johannesburg**, plus **fridge trailer hire** (a towable refrigerated trailer, mostly hired by hunters in season, marketed to functions and events in summer).
 - The **meat shop is the main thing**. Fridge trailer hire has its own page at `/fridge-trailer-hire/`.
 - The shop sells **year round** (not only game meat: lamb etc. too). The summer marketing push is the trailer hire, which hunters mostly book in season.
-- This repo is a **static site, no backend, no build step**. The meat cart is still fake (a counter and a toast). The trailer page takes enquiries via WhatsApp and a Formspree form (both need owner config, see §8).
-- Live on Vercel at **https://venilicious-preview.vercel.app**.
+- This repo is a **static site, no backend, no build step**. The meat cart is still fake (a counter and a toast). The trailer page takes bookings via WhatsApp (071 195 7072), call, email, and a form that opens WhatsApp or the visitor's email app.
+- **The real business site is WordPress at https://www.venilicious.co.za** (About, Services, Bookings, Contact, Careers, Privacy, T&Cs, HuntEx 2026 competition terms). This build is a **preview** at **https://venilicious-preview.vercel.app** and is **noindexed** (`X-Robots-Tag: noindex` in `vercel.json`) until the owner decides to move the domain. See §2 "Moving the domain".
 - Mobile-first, dark "fire and embers" aesthetic, South African English, prices in ZAR.
 
 ---
@@ -29,8 +29,11 @@ All of this comes from the site copy. Treat it as **draft positioning, not confi
 | Market | Johannesburg families (Sandton, Greenside, Fourways, Rosebank, Bryanston). Trailer: hunters heading to farms, event organisers, farms |
 | Core promise | Cold chain "field to door", same-day Joburg delivery before a daily cutoff, freshness guarantee |
 | Offers | **Build your box** (any 5 cuts, save 15%, R799 to R1,899) · **Braai Club** (from R799/month) · per-product **Subscribe & save 15%** · free delivery over R1,500 |
-| Trailer rates | **Not set yet.** Page shows Day / Weekend / Weekly cards with "On request" |
-| Support | WhatsApp (number not set yet) |
+| Trailers & rates | **Short Boy** 2.34 × 1.5 × 1.5 m, 390 kg, R750/day · **Tall Boy** 2.5 × 1.5 × 1.8 m, 390 kg, R750/day · **1 Tonner** 2.5 × 1.5 × 1.6 m, 1,100 kg, braked, R950/day · **Double Tonner** 3 × 1.5 × 1.6 m, 2,080 kg, braked, R1,050/day (source: venilicious.co.za/bookings/) |
+| Every trailer | +10°C to −16°C (fridge or freezer), meat rail for hanging, galvanised shelving on request, compressor runs off mains or a generator (source: venilicious.co.za/services/) |
+| Contacts | Adriaan 071 195 7072 (WhatsApp + calls, confirmed by Richard) · Blair 076 403 5829 · bookings@venilicious.co.za (flyer) · adriaan@venilicious.co.za (current site) |
+| Socials | Facebook `profile.php?id=100068164663368` · Instagram `@venilicious_ptyltd` |
+| Promo history | HuntEx 2026 "Rent & Win": rent a trailer Apr to Aug 2026 to win a Winchester 375 H&H M70 Safari Express; winner announced 24 Sep 2026 (over) |
 | Payments shown | Peach Payments, Visa, Mastercard, SnapScan (badges only, no checkout) |
 | Brand touch | Footer quotes **Genesis 27:3–4**. Deliberate, keep it unless the owner says otherwise |
 
@@ -95,7 +98,14 @@ Open http://localhost:8000/.
 - Vercel project `venilicious-preview`, team `milosam3s-projects`. Static files, no build.
 - **Git-connected (since 2026-09-29): every push to `main` deploys to production.** `vercel --prod` from the repo root still works as a manual fallback. `.vercelignore` keeps this file and the original PNGs off the site.
 - `vercel.json` 301s: `/homepage/` → `/`, `/product/` → `/venison-fillet/`, `/trailer-hire/` and `/koelwa/` → `/fridge-trailer-hire/`.
-- **Canonical/OG/sitemap URLs are hard-coded to `https://venilicious-preview.vercel.app`.** When a custom domain goes live, find/replace that string across the repo (HTML, sitemap.xml, robots.txt) and redeploy.
+- **Canonical/OG/sitemap URLs are hard-coded to `https://venilicious-preview.vercel.app`.**
+
+### Moving the domain (when the owner says go)
+1. Copy over pages the WordPress site has that this one doesn't: Privacy Policy, Terms and Conditions, HuntEx 2026 competition terms, Careers, About.
+2. Add 301s in `vercel.json` from the old WordPress URLs: `/about/`, `/services/` → `/fridge-trailer-hire/`, `/bookings/` → `/fridge-trailer-hire/#book`, `/contact/`, `/careers/`, `/privacy-policy/`, `/terms-and-conditions/`, `/huntex-2026-competition-terms-and-conditions/`.
+3. Find/replace `https://venilicious-preview.vercel.app` → `https://www.venilicious.co.za` (HTML, sitemap.xml, robots.txt).
+4. Remove the `X-Robots-Tag: noindex` header from `vercel.json`.
+5. Add the domain in Vercel, update DNS (A `76.76.21.21`, CNAME `www` → `cname.vercel-dns.com`), then submit the sitemap in Google Search Console.
 
 ---
 
@@ -173,14 +183,14 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 | `family-braai` | PDP gallery #3, FBT Springbok |
 | `butcher-hands` | Build-your-box background |
 
-**No trailer photos exist yet.** The trailer page uses an SVG illustration and says "Real trailer photos coming soon".
+**Trailer photo:** `images/venilicious-fridge-trailer.webp` (651×430) is cropped from the HuntEx 2026 flyer and cleaned up (buffalo horn painted out, left edge faded). It's low-res, so replace it with real photos of each trailer when possible. The hero still uses the SVG illustration. `og/og-trailer.jpg` uses the photo.
 
 ---
 
 ## 7. SEO setup (done 2026-09-29)
 
 - Unique `<title>` + meta description per page, `lang="en-ZA"`, canonical, robots meta, `og:*` + Twitter cards with 1200×630 images, favicon set + web manifest, theme colour.
-- JSON-LD: homepage `Organization` + `WebSite`; trailer page `Organization` + `Service` (areaServed Johannesburg/Gauteng) + `BreadcrumbList` + `FAQPage`; PDP `WebPage` + `BreadcrumbList`. **No Product/ratings markup** until prices, stock and reviews are real.
+- JSON-LD: homepage `Organization` (with phone, email, socials) + `WebSite`; trailer page `Organization` + `Service` (areaServed Johannesburg/Gauteng, 4 `Offer`s with ZAR daily prices) + `BreadcrumbList` + `FAQPage` (12 Qs); PDP `WebPage` + `BreadcrumbList`. **No Product/ratings markup** until prices, stock and reviews are real.
 - `robots.txt` + `sitemap.xml` (3 URLs). Clean URLs with trailing slashes and 301s from old paths.
 - One H1 per page, logical H2/H3, descriptive alt text on every content image, no `href="#"` links left, all internal links resolve.
 - Performance: images cut from ~11 MB to ~1.3 MB, lazy loading, dimensions set (no layout shift), logos resized from 3508px to 2–3× display size.
@@ -189,28 +199,25 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 ### Still to do for SEO (needs the owner / Richard)
 1. **Google Business Profile** for the trailer hire ("fridge trailer hire near me" is a local search; this matters more than anything on the site).
 2. **Google Search Console**: verify the site, submit `sitemap.xml`.
-3. **Custom domain** (e.g. `venilicious.co.za`) then swap the canonical base URL (see §2 Deploy).
+3. **Move venilicious.co.za** to this site with 301s from the old WordPress URLs and drop the noindex header (see §2 "Moving the domain"). Until then this preview is deliberately kept out of Google.
 4. Real trailer photos with descriptive file names + alt text.
-5. Fill the TBC specs and rates (more useful content ranks better and converts better).
+5. Confirm deposit, delivery and weekly rates (more useful content ranks better and converts better).
 
 ---
 
-## 8. Owner checklist: placeholders to replace
+## 8. Owner checklist: still to confirm
 
-| Item | Where | How |
+| Item | Where | Status |
 |---|---|---|
-| **WhatsApp number** | `assets/site.js` → `whatsapp` **and** the `27000000000` placeholder in all HTML hrefs | Find/replace `27000000000` with the real number (27 + number without leading 0) across the repo. Until set, WhatsApp buttons scroll to the booking form / show a "being set up" message instead of opening a dead chat |
-| **Formspree form ID** | `assets/site.js` → `formspreeId` | Create a form at formspree.io, paste the ID. Until set, "Send enquiry" says enquiries open soon (or falls back to WhatsApp once the number is set) |
-| Trailer specs (size, capacity, temp range, power, GVM, rails/shelves, plug type) | `fridge-trailer-hire/index.html`, spec table (`dd.tbc`) | Replace `TBC` values, drop the `tbc` class |
-| Trailer rates, deposit, delivery | `fridge-trailer-hire/index.html`, `#rates` + FAQ | Replace "On request" with e.g. `R850 <small>/ day</small>` |
-| Pickup area | "How it works" step 2, FAQ "Do you deliver", booking sidebar | |
-| FAQ answers to confirm | power ("plugs into a power point"), taking it outside Gauteng ("Yes"), delivery, deposit | Edit text **and** the FAQPage JSON-LD |
-| Social links | Footer (commented TODO) + `sameAs` in homepage JSON-LD | |
-| CIPC reg number | Footer `.fbase` (fake number removed) | |
-| Real reviews | Removed. Add back only real, attributable reviews | Publishing invented reviews is misleading and a legal risk under SA consumer protection law |
+| WhatsApp number | `assets/site.js` + HTML hrefs (`27711957072`) | **Done** (Adriaan 071 195 7072) |
+| Formspree form ID | `assets/site.js` → `formspreeId` | Optional. Empty = "Send by email" opens the visitor's email app addressed to bookings@ |
+| Trailer sizes, loads, daily rates, temp range, rail/shelving, power | `fridge-trailer-hire/index.html` `#rates`, `#trailer`, FAQ, Service JSON-LD offers | **Done** (from current site) |
+| Weekly / multi-day rates, deposit, delivery options, pickup area, distance limits | "How it works" step 2, `.ratenote`, FAQ (deliver / deposit / outside Gauteng), booking sidebar | Owner to confirm. Edit text **and** the FAQPage JSON-LD |
+| Proper photos of each trailer | `images/venilicious-fridge-trailer.webp` (from flyer, low-res), hero SVG | Owner to supply |
+| CIPC reg number | Footer `.fbase` | Owner to supply |
+| Real reviews | Removed. Add back only real, attributable reviews | Invented reviews are misleading and a legal risk under SA consumer protection law |
 | Meat claims | "hormone-free", "higher in omega-3 than beef", "dry-aged", "within 24 hours", nutrition figures | Owner to confirm |
 | Mock prices, "was" prices, cutoff times, delivery thresholds | Homepage + PDP | Owner to confirm |
-
 ---
 
 ## 9. Known issues
@@ -227,15 +234,12 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 
 ## 10. Open questions for the owner
 
-1. Trailer: size, capacity, temperature range, power needs, GVM, fittings, plug type?
-2. Trailer: daily / weekend / weekly rates, deposit, delivery options and fee, pickup area, any distance limits?
-3. How many trailers? (Page assumes one.)
-4. Real WhatsApp number, company registration, social handles?
-5. Full product range (lamb and anything else beyond game), real prices and stock?
-6. What will the real store run on (Shopify, WooCommerce, custom)?
-7. Real photography for the trailer and products?
-8. Custom domain?
-
+1. Weekly / multi-day rates, deposit, delivery options and fee, pickup area, any distance limits?
+2. Company registration number?
+3. Full meat range (lamb and beyond), real prices and stock?
+4. What will the real store run on (Shopify, WooCommerce, custom)?
+5. Real photography for each trailer and the meat products?
+6. When to move venilicious.co.za from WordPress to this site (§2 "Moving the domain")?
 ---
 
 ## 11. Working rules for Cowork
@@ -253,10 +257,10 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 
 | # | Pri | Task |
 |---|---|---|
-| 1 | P1 | Owner fills §8 checklist (WhatsApp + Formspree first: until then the trailer page can't take bookings) |
-| 2 | P1 | Google Business Profile + Search Console + custom domain (§7) |
+| 1 | P1 | Owner confirms remaining §8 items (deposit, delivery, pickup area, weekly rates) |
+| 2 | P1 | Move venilicious.co.za to this site (§2), then Google Business Profile + Search Console (§7) |
 | 3 | P1 | Unify the same-day cutoff and compute it in SAST (§9 #1) |
-| 4 | P2 | Real trailer photos → replace SVG in hero/spec, add `ImageObject` to Service JSON-LD |
+| 4 | P2 | Real photos of each trailer → replace hero SVG + flyer crop, add `ImageObject` to Service JSON-LD |
 | 5 | P2 | Accessibility: PDP plan/size selectors as real radio inputs |
 | 6 | P2 | Shop-all page, persistent cart, fix subscribe × quantity |
 | 7 | P3 | Build-your-box and Braai Club pages |
