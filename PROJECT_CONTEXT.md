@@ -183,7 +183,7 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 | `family-braai` | PDP gallery #3, FBT Springbok |
 | `butcher-hands` | Build-your-box background |
 
-**Trailer photo:** `images/venilicious-fridge-trailer.webp` (651×430) is cropped from the HuntEx 2026 flyer and cleaned up (buffalo horn painted out, left edge faded). It's low-res, so replace it with real photos of each trailer when possible. The hero still uses the SVG illustration. `og/og-trailer.jpg` uses the photo.
+**Trailer photos (real, from Richard):** sources `images/originals/trailer1.jpg` (tandem axle trailer, low angle) and `trailer2.jpg` (single axle trailer + fleet line-up, side lists festivals, events, functions, catering, weddings, florists, camping, hunting, sports events). Web versions: `venilicious-fridge-trailer-tandem-{600,1200}.webp` (trailer page hero, OG card) and `venilicious-fridge-trailer-fleet-{600,1200}.webp` (trailer page "Every trailer" section, homepage promo). The old SVG trailer illustration is no longer used.
 
 ---
 
@@ -213,7 +213,7 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 | Formspree form ID | `assets/site.js` → `formspreeId` | Optional. Empty = "Send by email" opens the visitor's email app addressed to bookings@ |
 | Trailer sizes, loads, daily rates, temp range, rail/shelving, power | `fridge-trailer-hire/index.html` `#rates`, `#trailer`, FAQ, Service JSON-LD offers | **Done** (from current site) |
 | Weekly / multi-day rates, deposit, delivery options, pickup area, distance limits | "How it works" step 2, `.ratenote`, FAQ (deliver / deposit / outside Gauteng), booking sidebar | Owner to confirm. Edit text **and** the FAQPage JSON-LD |
-| Proper photos of each trailer | `images/venilicious-fridge-trailer.webp` (from flyer, low-res), hero SVG | Owner to supply |
+| Photos per trailer size (Short Boy, Tall Boy, 1 Tonner, Double Tonner) | Fleet cards in `#rates` | Nice to have: 2 real photos are live |
 | CIPC reg number | Footer `.fbase` | Owner to supply |
 | Real reviews | Removed. Add back only real, attributable reviews | Invented reviews are misleading and a legal risk under SA consumer protection law |
 | Meat claims | "hormone-free", "higher in omega-3 than beef", "dry-aged", "within 24 hours", nutrition figures | Owner to confirm |
