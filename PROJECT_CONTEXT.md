@@ -1,6 +1,6 @@
 # Venilicious: Project Context
 
-> Handoff brief for Claude Cowork. Last updated 2026-09-29 (trailer hire page, SEO sweep, real trailer data + contacts).
+> Handoff brief for Claude Cowork. Last updated 2026-10-05 (full redesign: light editorial "Direction A", see §3).
 > The code is the source of truth. This file summarises it; if something here disagrees with the code, trust the code and update this file.
 
 ---
@@ -12,7 +12,7 @@
 - The shop sells **year round** (not only game meat: lamb etc. too). The summer marketing push is the trailer hire, which hunters mostly book in season.
 - This repo is a **static site, no backend, no build step**. The meat cart is still fake (a counter and a toast). The trailer page takes bookings via WhatsApp (071 195 7072), call, email, and a form that opens WhatsApp or the visitor's email app.
 - **The real business site is WordPress at https://www.venilicious.co.za** (About, Services, Bookings, Contact, Careers, Privacy, T&Cs, HuntEx 2026 competition terms). This build is a **preview** at **https://venilicious-preview.vercel.app** and is **noindexed** (`X-Robots-Tag: noindex` in `vercel.json`) until the owner decides to move the domain. See §2 "Moving the domain".
-- Mobile-first, dark "fire and embers" aesthetic, South African English, prices in ZAR.
+- Mobile-first, **light editorial design** (bone paper, black ink, logo bronze, condensed display type, hairlines), South African English, prices in ZAR. Redesigned 2026-10-05 to stop it looking AI-generated; see §3 for the rules that keep it that way.
 
 ---
 
@@ -42,7 +42,7 @@ All of this comes from the site copy. Treat it as **draft positioning, not confi
 - South African English: "favourites", "colour", "Joburg". Local words used naturally: *braai, boerewors, oupa, bakkie*.
 - **No dashes in copy** (Richard's rule). Use commas or full stops instead of em/en dashes. Numeric ranges (6–8) are fine.
 - Currency format **`R1,099`**.
-- Headline pattern: short declarative sentence, one phrase italicised in amber (`<em>Delivered</em>`).
+- Headline pattern: short, plain declarative sentence set in condensed caps ("Fridge trailers for hire."). No italic accent words.
 
 ### Glossary (for non-SA readers)
 | Term | Meaning |
@@ -67,8 +67,9 @@ venilicious-preview/
 ├── fridge-trailer-hire/index.html # Trailer hire page
 ├── venison-fillet/index.html     # Product page (was /product/)
 ├── assets/
-│   ├── site.css                  # Shared chrome: menu drawer, toast, focus styles, announce-bar fix
-│   └── site.js                   # SHARED CONFIG (WhatsApp number, Formspree ID) + drawer + WhatsApp links
+│   ├── site.css                  # THE design system (tokens, type, header, menu, footer, sections, forms, tiles)
+│   ├── site.js                   # SHARED CONFIG (WhatsApp number, email, Formspree ID) + menu + WhatsApp links + toast
+│   └── fonts/                    # Self-hosted: archivo.woff2 (variable wdth 62 to 125, wght 100 to 900), plex-mono-400/500.woff2
 ├── images/
 │   ├── *-1200.webp, *-600.webp   # Optimised photos (6 photos × 2 sizes)
 │   ├── logo-mark.webp, logo-wordmark.webp, logo-lockup.webp
@@ -83,9 +84,10 @@ venilicious-preview/
 
 - Plain HTML, CSS and vanilla JS. No framework, no package.json, no build step, no tests.
 - **All asset paths are root-absolute** (`/images/…`, `/assets/…`). Pages must be served over HTTP; opening from disk breaks paths.
-- Each page keeps its own CSS in `<style>` and page JS inline. **Shared chrome** (announcement bar, nav, menu drawer, footer) is duplicated in all 3 pages; drawer + toast styles/behaviour live in `assets/site.css` + `assets/site.js`. If you change the header, drawer or footer, change **all 3 pages**.
-- Bump `?v=1` on `site.css`/`site.js` links after editing them (assets are cached 1 day).
-- Fonts: Google Fonts, **Playfair Display**, **Archivo**, **Spline Sans Mono**.
+- **All styling lives in `assets/site.css`.** Pages only add small page-specific `<style>` (the product page has one). Page JS is inline at the bottom of each page.
+- **Shared markup** (header, menu overlay, footer) is duplicated in all 3 pages. If you change it, change **all 3 pages**.
+- Bump `?v=3` on `site.css`/`site.js` links after editing them (assets are cached 1 day).
+- Fonts are **self-hosted** (no Google Fonts request): Archivo variable + IBM Plex Mono, preloaded in each `<head>`.
 - Git: `main` only, remote `github.com/Milosam3/venilicious-preview`. Commit messages lowercase with a prefix: `add:`, `fix:`, `chore:`.
 
 ### Run locally
@@ -109,54 +111,60 @@ Open http://localhost:8000/.
 
 ---
 
-## 3. Design system
+## 3. Design system (Direction A, light editorial, 2026-10-05)
 
-### Colour tokens (in `:root` of every page)
+Goal: look like a bespoke agency built it, not an AI. Everything is in `assets/site.css`.
+
+### Tokens
 
 | Token | Value | Use |
 |---|---|---|
-| `--bg` | `#141210` | Page background |
-| `--bg-2` | `#1b1611` | Cards, inputs |
-| `--brown` / `--brown-2` | `#2a1f14` / `#352513` | Gradients, deep accents |
-| `--amber` | `#c85a1e` | **Primary brand/CTA** |
-| `--amber-2` | `#e0843b` | Hover, italic emphasis, eyebrows |
-| `--ember` | `#ff7a2a` | Pulsing dot, glows |
-| `--cream` / `--cream-2` | `#f5efe6` / `#e8dfd0` | Text |
-| `--dim` / `--dim-2` | cream @ 62% / 40% | Muted text |
-| `--line` / `--line-2` | cream @ 12% / 7% | Borders |
-| `--ok` | `#7fae6b` | Success, WhatsApp green |
+| `--bg` | `#EEEAE2` | Bone paper background |
+| `--bg-2` | `#E5E0D6` | Image placeholders |
+| `--ink` | `#121212` | Type, buttons, strong rules |
+| `--ink-2` | `#2B2A27` | Body copy |
+| `--mute` | `#5D5A54` | Captions, labels |
+| `--rule` | ink @ 16% | Hairlines |
+| `--accent` | `#7D5C26` | Logo bronze (darkened for contrast): section numbers, tags, hover |
+| `--inv-*` | `#121212` / `#ECE7DD` / `#C49A57` | Inverse bands: booking section + footer (`.inv`) |
 
-**Logo:** bronze antelope mark + black wordmark, so it sits on a white pill in the nav and is inverted to white in the footer. Favicons put the mark on a cream rounded square.
+### Type
+- **Display:** Archivo at `font-stretch:62%`, weight 800, uppercase, line-height .88 (`.display`, `.h1`, `.h2`, `.h3`, `.h4`). Echoes the condensed VENILICIOUS wordmark.
+- **Text:** Archivo at normal width.
+- **Data / labels:** IBM Plex Mono 12px (`.mono`) for kickers, specs, captions, prices' units. Sentence case, no letter-spaced caps.
 
-### Typography
-Playfair Display (headings, prices, display type), Archivo (body/UI, `.label` eyebrows), Spline Sans Mono (small captions).
+### Components
+`.hero` (copy left, photo bleeding off the right edge) · `.specline` (4 key facts on hairlines) · `.shead` (mono section number "01 / Name", big display heading, short note) · `.row` price list (trailers) · `.tiles` (products) · `.split` (text + image) · `.nlist` (numbered list) · `.cols` (2/4 column text grid) · `.faq` (`<details>`) · `.form` (underline fields) · `.btn`, `.btn.line`, `.tlink` (underlined text link with arrow) · `.stickybar` (mobile) · `.site-head` (sticky, bone, hairline) · `.drawer` (full screen menu) · `.site-foot.inv`.
 
-### Recurring patterns
-Eyebrow label with amber rule · `.btn-amber` / `.btn-ghost` / `.textlink` · cards with `--bg-2` + `--line-2` border, amber on hover · urgency/"now booking" pill with pulsing ember dot · film grain overlay · scroll reveal (`.rv`, homepage) · giant italic display word ("WILD." on home, "COLD." on trailer page) · mobile sticky bottom bar (PDP + trailer page).
+### Rules that keep it from looking AI-made (don't reintroduce these)
+- No Playfair / italic accent words, no orange, no glows, no film grain, no pulsing dots or countdown timers.
+- No tiny letter-spaced eyebrow labels with a line in front. Use the mono "01 / Section" style.
+- No rounded cards with soft borders and hover lift. Use hairlines, rows and square corners (2px max radius).
+- No icon trios, no emoji, no "Most popular" or "Save R70" badges, no strike-through "was" prices.
+- Real photos big and edge-to-edge. Never use images with other brands or garbled AI text (the old `delivery-box` image showed "Wild Harvest Provisions" and was removed).
+- Copy: plain, specific, no dashes.
 
-**Trailer illustration:** inline SVG line drawing of a fridge trailer (homepage promo, trailer hero, trailer spec section, OG image). It is a stand-in until real photos exist.
+**Logo:** shown as designed (bronze mark + black wordmark) on the bone background; inverted to off-white in the footer. Favicons: mark on a cream square.
 
 ---
 
 ## 4. Pages
 
 ### Homepage `/` (`index.html`)
-Sticky header (rotating announcement bar incl. link to trailer hire; menu drawer; cart) → hero (H1 "Wild-harvested meat. *Delivered* to Joburg.") → trust bar → "WILD." bleed → **Best cuts** `#best-cuts` (fillet card links to `/venison-fillet/`) → **Build your box** `#build-box` → **Fridge trailer hire promo** `#trailer-hire` (replaced the fake reviews section) → **Braai Club** `#braai-club` → footer.
+Header → hero (H1 "Venison, game & lamb.", hero-sear photo) → spec line (same day Joburg, field to door, free delivery over R1,500, Limpopo & N. Cape) → **01 Best sellers** `#best-sellers` (3 tiles; fillet links to its page) → **02 Build a box** `#build-a-box` (WhatsApp order) → **03 Fridge trailer hire** `#trailer-hire` (mini price list + fleet photo) → **04 Braai Club** `#braai-club` (WhatsApp) → footer `#contact`. Mock cart: badge + toast only.
 
 ### Fridge trailer hire `/fridge-trailer-hire/`
-Breadcrumb → hero (H1 "Fridge trailer hire. *Keep it cold* from bush to braai.", Book on WhatsApp + Check dates) → trust bar → "COLD." bleed → **Who it's for** (4 use cases) → **The trailer** spec table `#trailer` (mostly TBC) → **Rates** `#rates` (Day / Weekend / Weekly, "On request", each with a prefilled WhatsApp quote link) → **How it works** `#how-it-works` → **Hunter's guide** `#tips` (SEO content: keeping game meat cold) → **FAQ** `#faq` (9 Qs, native `<details>`, FAQPage JSON-LD generated from the same text) → **Booking** `#book` (form: name, number, use, collect/return dates, destination, notes; "Send on WhatsApp" builds a prefilled message, "Send enquiry" posts to Formspree) → cross-sell to meat shop → footer → mobile sticky "Book on WhatsApp" bar.
+Breadcrumb → hero (H1 "Fridge trailers for hire.", tandem photo) → spec line → **01 Sizes & rates** `#rates` (4 rows, each with a prefilled WhatsApp book link) → **02 Every trailer** `#trailer` (5 features + fleet photo) → **03 Who hires them** `#uses` → **04 How it works** `#how-it-works` → **05 Hunter's guide** `#tips` → **06 Questions** `#faq` (12 Qs; FAQPage JSON-LD in `<head>` must match) → **07 Book** `#book` (dark band: WhatsApp / call / email list + form: name, number, use, trailer, dates, destination, notes; "Send on WhatsApp" builds a message, "Send by email" uses Formspree if set, else opens the visitor's email app to bookings@) → cross-sell to the meat shop → footer → mobile sticky "Book on WhatsApp".
 
-If the FAQ text changes, update the FAQPage JSON-LD in the `<head>` to match.
-
-### Product page `/venison-fillet/` (was `/product/`)
-Same header + breadcrumb (Shop / Venison / Fillet) → gallery → info (title, countdown, price, plan toggle, size, qty, add) → trust row → delivery estimator → accordions (with `aria-expanded`) → frequently bought together → you might also like → recipes (not links) → "Heading out on a hunt?" trailer cross-link → footer.
-Pricing logic: `PRICES` object in the page script; subscription = one-time × 0.85 rounded to R5.
+### Product page `/venison-fillet/`
+Breadcrumb → gallery (3 images, swipe + thumbnails) → info (H1, size line, price, Plan radios one-time / subscribe 15%, Size radios, qty, add) → delivery note (WhatsApp) → details accordions → "The braai bundle" (R489) → related tiles → recipes → trailer cross-link → footer → mobile sticky add bar.
+Pricing logic: `PRICES` in the page script; subscription = one-time × 0.85 rounded to R5; total = unit × qty in both modes. "Was" prices and the fake delivery estimator were removed in the redesign.
 
 ---
 
 ## 5. Catalogue (mock data)
 
-| Product | Size | Price | "Was" | Where |
+| Product | Size | Price | Old mock "was" price (no longer shown) | Where |
 |---|---|---|---|---|
 | Venison Fillet | 500g / 1kg / 2kg | R289 / R519 / R879 (sub R245 / R440 / R745) | R359 / R639 / R1,079 | Home card, PDP |
 | Braai Feeder | ~3.2kg, serves 6–8 | R1,099 | R1,340 | Home card |
@@ -166,7 +174,7 @@ Pricing logic: `PRICES` object in the page script; subscription = one-time × 0.
 | Springbok Chops | n/a | R149 | R189 | PDP |
 | Fillet bundle | n/a | R489 | R567 | PDP |
 
-Star ratings and review counts were **removed** (they were invented).
+Star ratings, review counts, badges and "was" prices were **removed** (they were invented).
 
 ---
 
@@ -177,13 +185,14 @@ Photos are AI-generated (Runway). Source PNGs (1200×896, ~2 MB each) live in `i
 | Photo | Used for |
 |---|---|
 | `hero-sear` | Homepage hero, PDP gallery #1, recipe tile |
-| `cuts-slate` | Fillet card, PDP gallery #2, FBT, Kudu card, recipe tile, trailer page cross-sell |
-| `boerewors-braai` | Braai Feeder card, FBT, Boerewors card |
-| `delivery-box` | Freezer Pack card, PDP gallery #4, Springbok card |
-| `family-braai` | PDP gallery #3, FBT Springbok |
-| `butcher-hands` | Build-your-box background |
+| `cuts-slate` | Fillet tile, PDP gallery #2, Kudu tile, recipe tile, trailer page cross-sell |
+| `boerewors-braai` | Braai Feeder tile, Boerewors tile |
+| `family-braai` | Family Freezer Pack tile, PDP gallery #3 |
+| `butcher-hands` | Build a box, Springbok tile |
 
-**Trailer photos (real, from Richard):** sources `images/originals/trailer1.jpg` (tandem axle trailer, low angle) and `trailer2.jpg` (single axle trailer + fleet line-up, side lists festivals, events, functions, catering, weddings, florists, camping, hunting, sports events). Web versions: `venilicious-fridge-trailer-tandem-{600,1200}.webp` (trailer page hero, OG card) and `venilicious-fridge-trailer-fleet-{600,1200}.webp` (trailer page "Every trailer" section, homepage promo). The old SVG trailer illustration is no longer used.
+The AI `delivery-box` image was deleted: it showed another brand ("Wild Harvest Provisions") and garbled AI text. Replace all of these with real product photography when possible.
+
+**Trailer photos (real, from Richard):** sources `images/originals/trailer1.jpg` (tandem axle trailer, low angle) and `trailer2.jpg` (single axle trailer + fleet line-up, side lists festivals, events, functions, catering, weddings, florists, camping, hunting, sports events). Web versions: `venilicious-fridge-trailer-tandem-{600,1200,1800}.webp` (trailer page hero, OG card) and `venilicious-fridge-trailer-fleet-{600,1200}.webp` (trailer page "Every trailer" section, homepage promo). The old SVG trailer illustration is no longer used.
 
 ---
 
